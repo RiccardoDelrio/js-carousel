@@ -31,11 +31,14 @@ const nextEl = document.querySelector(".next")
 const prevEl = document.querySelector(".prev")
 const autoEl = document.querySelector(".auto")
 const stopEl = document.querySelector(".stop")
-//create a markup Function
-
-addMarkup(images)
-
+const thumbnailsEl = document.querySelector(".thumbnails")
+//declare counter and auto(variable for set interval)
 let counter = 0
+let auto
+//create a markup Function
+addMarkup(images)
+miniCard(images)
+
 nextEl.addEventListener("click", () => {
     play()
 
@@ -43,7 +46,7 @@ nextEl.addEventListener("click", () => {
 prevEl.addEventListener("click", () => {
     preview()
 })
-let auto
+
 autoEl.addEventListener("click", () => {
     auto = setInterval(play, 1000)
 })
@@ -51,12 +54,36 @@ stopEl.addEventListener("click", () => {
     clearInterval(auto)
 })
 
+//funcion
 
+//add markup in page
 function addMarkup(arr) {
-    for (let i = 1; i < arr.length; i++)
+    for (let i = 1; i < arr.length; i++) {
         imageContainerEl.insertAdjacentHTML('beforeend', `<img src="${arr[i].image}" alt="">`)
 
+
+    }
+
 }
+function miniCard(arr) {
+    //add html
+    for (let i = 0; i < arr.length; i++) {
+        thumbnailsEl.insertAdjacentHTML('beforeend', `
+            <div class="col-2">
+                <img src="${arr[i].image}" alt="">
+            </div>`)
+        //change image on click
+        thumbnailsEl.children[i].addEventListener("click", () => {
+            console.log("clickkkkk");
+            imageContainerEl.children[counter].classList.remove("active")
+            counter = i
+            imageContainerEl.children[counter].classList.add("active")
+        })
+    }
+
+}
+
+//remove and add class "active"
 const play = () => {
     imageContainerEl.children[counter].classList.remove("active")
     counter++
@@ -75,6 +102,7 @@ const preview = () => {
 
     imageContainerEl.children[counter].classList.add("active")
 }
+
 
 
 

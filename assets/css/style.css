@@ -2,6 +2,8 @@ img {
     width: 100%;
 }
 
-img:not(.active) {
-    display: none;
+.imageContainer {
+    img:not(.active) {
+        display: none;
+    }
 }
